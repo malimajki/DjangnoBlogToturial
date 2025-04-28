@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Smazat příspěvek</h1>
+<div class="alert alert-warning">Jste si jistý/á že chcete smazat příspěvek s názvem "{{ post.title }}"?</div>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Potvrdit</button>
+</form>
+<a class="btn btn-secondary" href="{% url 'home' %}">Zrušit</a>
+
+{% endblock content %}
