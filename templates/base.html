@@ -17,34 +17,7 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url "home" %}">Domů</a>
                 </li>
-                
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Kategorie
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a href="{% url 'home' %}" 
-                      class="nav-link">
-                          <span class="font-bold text-sm">Všechny kategorie</span> 
-                      </a>
-                    </li>
-                    {% for category in categories %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'home' %}?category={{ category.slug }}">{{ category.title }}</a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </li>
               </ul>
-              <form class="d-flex" action="." method="get">
-                <input class="form-control me-2" name="blog_search" type="search" placeholder="Hledej..." aria-label="Search"
-                value="{% if request.GET.blog_search %}{{ request.GET.blog_search }}{% endif %}">
-                    {% if request.GET.category %}
-                        <input type="hidden" name="category" value="{{ request.GET.category }}">
-                    {% endif %}
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
             </div>
           </div>
         </nav>

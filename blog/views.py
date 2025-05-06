@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Post
+from .models import Post
 from .forms import PostForm
-from django.db.models import Q
 
 def home_view(request):
     posts = Post.objects.all()
