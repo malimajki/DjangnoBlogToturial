@@ -5,22 +5,9 @@ from django.db.models import Q
 
 def home_view(request):
     posts = Post.objects.all()
-    categories = Category.objects.all()
-
-    active_category = request.GET.get('category', '')
-
-    if active_category:
-        posts = posts.filter(category__slug=active_category)
-
-    query = request.GET.get('blog_search', '')
-
-    if query:
-        posts = posts.filter(Q(title__icontains=query) | Q(body__icontains=query))
 
     context = {
         "posts":posts,
-        "categories":categories,
-        "active_category":active_category
     }
     return render (request, "blog/home.html", context)
 
