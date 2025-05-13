@@ -1,12 +1,11 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 
 {% block content %}
 
 <h1>Nový příspěvek</h1>
 <form method="post">
   {% csrf_token %}
-  {% crispy form %}
+  {{ form.as_p }}
   <button class="btn btn-primary" type="submit">Uložit</button>
 </form>
 <a class="btn btn-secondary" href="{% url 'home' %}">Zrušit</a>

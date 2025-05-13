@@ -4,4 +4,8 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'created']
+        fields = ['title', 'body']
+        labels = {
+            'title': 'Název článku',
+            'body': 'Obsah článku',
+        }
