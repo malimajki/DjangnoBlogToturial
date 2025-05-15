@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Post
 from .forms import PostForm
-from django.db.models import Q
 
 def home_view(request):
     posts = Post.objects.all()
@@ -11,11 +10,6 @@ def home_view(request):
 
     if active_category:
         posts = posts.filter(category__slug=active_category)
-
-    query = request.GET.get('blog_search', '')
-
-    if query:
-        posts = posts.filter(Q(title__icontains=query) | Q(body__icontains=query))
 
     context = {
         "posts":posts,
