@@ -17,7 +17,7 @@ class Post(models.Model):
     body = models.TextField()
     slug = AutoSlugField(populate_from="title")
     category = models.ManyToManyField(Category, related_name="posts")
-    created = models.DateField()
+    created = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f'{str(self.title)}'

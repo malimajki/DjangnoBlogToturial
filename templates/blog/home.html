@@ -1,7 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a class="btn btn-success mb-4" href="{% url 'post_create' %}">Vytvořit nový příspěvek</a>
+  <div>
+  <a class="btn btn-success mb-4" href="{% url 'post_create' %}">Vytvořit nový příspěvek</a>
+  <a class="btn btn-success mb-4" href="{% url 'category_create' %}">Vytvořit novou kategorii</a>
+  <a class="btn btn-success dropdown-toggle mb-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Kategorie {% if active_category %}({{ active_category }}){% endif %}
+  </a>
+  <ul class="dropdown-menu">
+    <li class="nav-item ms-2 link-primary">
+      <a href="{% url 'home' %}" 
+      class="nav-link">
+          <span class="font-bold text-sm">Všechny kategorie</span> 
+      </a>
+    </li>
+    {% if categories %}
+    {% for category in categories %}
+    <li class="nav-item ms-2 link-primary">
+      <a class="nav-link" href="{% url 'home' %}?category={{ category.slug }}">{{ category.title }}</a>
+      <div>
+        <a href="{% url 'category_update' category.slug %}" class="btn btn-sm btn-outline-primary me-2">Upravit</a>
+        <a href="{% url 'category_delete' category.slug %}" class="btn btn-sm btn-outline-danger">Smazat</a>
+      </div>
+    </li>
+    {% endfor %}
+    {% endif %}
+  </ul>
+</div>
 {% if posts %}
 <ul class="list-group">
   {% for post in posts %}

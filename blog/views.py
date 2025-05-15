@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Post
-from .forms import PostForm
+from .forms import PostForm, CategoryForm
 
 def home_view(request):
     posts = Post.objects.all()
@@ -47,5 +47,33 @@ def post_delete_view(request, slug):
     post = get_object_or_404(Post, slug=slug)
     if request.method == "POST":
         post.delete()
-        return redirect('post_list')
+        return redirect('home')
     return render(request, 'blog/post_confirm_delete.html', {'post': post})
+
+def category_create_view(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect (home_view)
+    else:
+        form = CategoryForm()
+    return render (request, "blog/category_form.html", {"form":form})
+
+def category_update_view(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', slug=category.slug)
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'blog/post_form.html', {'form': form})
+
+def category_delete_view(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    if request.method == "POST":
+        category.delete()
+        return redirect('home')
+    return render(request, 'blog/post_confirm_delete.html', {'post': category})
